@@ -8,7 +8,7 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-* Python 3.x
+* Python 3.10
 * Pip
 * Virtualenv
 
@@ -16,7 +16,7 @@ To get a local copy up and running follow these simple example steps.
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/your_username_/Auth_Service.git
+   git clone https://github.com/BerganouY/SaaS-BTP-Auth-Service.git
    ```
 2. Create a virtual environment
    ```sh
