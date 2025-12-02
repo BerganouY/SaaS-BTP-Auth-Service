@@ -49,7 +49,7 @@ class RequestPasswordResetEmailView(generics.GenericAPIView):
 
             # Construct the reset link (this should be your frontend URL)
             # For testing, we'll just print it or use a placeholder
-            reset_link = f"http://localhost:3000/reset-password/{uidb64}/{token}"
+            reset_link = f"{request.scheme}://{request.get_host()}/auth/password-reset-confirm/{uidb64}/{token}"
 
             email_body = render_to_string('email/password_reset.html', {
                 'user': user,

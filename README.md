@@ -26,14 +26,28 @@ To get a local copy up and running follow these simple example steps.
    ```sh
    source .venv/bin/activate
    ```
-4. Run migrations
+4. Install dependencies
+   ```sh
+   pip install -r requirements.txt
+   ```
+5. Run migrations
    ```sh
    python manage.py migrate
    ```
-5. Start the server
+6. Start the server
    ```sh
    python manage.py runserver
    ```
+
+## Web Interface
+
+This project includes a simple web interface to test the API. Once you start the server, you can access it at `http://127.0.0.1:8000/`.
+
+The following pages are available:
+*   `/auth/login/`: Login page to obtain a JWT token.
+*   `/auth/register/`: Registration page for new users.
+*   `/auth/request-password-reset/`: Page to request a password reset email.
+*   `/auth/protected-test/`: A page to test access to a protected resource using a JWT.
 
 ## Running the tests
 

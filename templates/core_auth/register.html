@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Register</h1>
+        <form id="registerForm">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="email" required>
+            </div>
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" required>
+            </div>
+            <div class="mb-3">
+                <label for="tenant_id" class="form-label">Tenant ID</label>
+                <input type="text" class="form-control" id="tenant_id" required>
+            </div>
+            <div class="mb-3">
+                <label for="role" class="form-label">Role</label>
+                <select class="form-select" id="role" required>
+                    <option value="Directeur">Directeur</option>
+                    <option value="Conducteur de Travaux">Conducteur de Travaux</option>
+                    <option value="Ressources Humaines">Ressources Humaines</option>
+                    <option value="Employé de Chantier">Employé de Chantier</option>
+                    <option value="Administrateur SaaS">Administrateur SaaS</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+        <div id="response" class="mt-3"></div>
+        <div class="mt-3">
+            <p>Already have an account? <a href="/auth/login/">Login here</a>.</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const tenant_id = document.getElementById('tenant_id').value;
+            const role = document.getElementById('role').value;
+            const responseDiv = document.getElementById('response');
+
+            fetch('/api/auth/register/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, username, password, tenant_id, role }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                responseDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+                 if (data.email) {
+                    responseDiv.innerHTML += '<div class="alert alert-success mt-3">Registration successful! You can now log in.</div>';
+                }
+            })
+            .catch(error => {
+                responseDiv.innerHTML = `<div class="alert alert-danger mt-3">Error: ${error}</div>`;
+            });
+        });
+    </script>
+</body>
+</html>
